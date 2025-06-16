@@ -7,9 +7,12 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: ["https://bee-store-rho.vercel.app", "http://localhost:5173"], // Add localhost for development
+  origin: [
+    "http://localhost:5173", // for local dev
+    "https://front-end-production-b25a.up.railway.app" // current frontend
+  ],
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  credentials: true, // If you use cookies or auth headers
+  credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
