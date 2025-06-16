@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:5173", // for local dev
-    "https://front-end-production-b25a.up.railway.app" // current frontend
+    "https://bee-store.up.railway.app" // current frontend
   ],
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   credentials: true,
