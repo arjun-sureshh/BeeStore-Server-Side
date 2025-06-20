@@ -71,17 +71,23 @@ const getUserView = async (req, res) => {
       { $unwind: { path: "$seller", preserveNullAndEmptyArrays: true } },
       // Project fields to match Product type
       {
-        $project: {
-          productId: "$product._id",
-          productTitle: "$variant.productTitle",
-          sellingPrice: "$variant.sellingPrice",
-          mrp: "$variant.mrp",
-          image: "$image.photos",
-          brandName: "$brand.brandName",
-          sellerName: "$seller.sellerName",
-          topcategoryId: "$product.categoryId",
-        },
-      },
+  $project: {
+    productId: "$product._id",
+    productTitle: "$variant.productTitle",
+    sellingPrice: "$variant.sellingPrice",
+    mrp: "$variant.mrp",
+    image: {
+      $cond: {
+        if: { $ne: ["$image.photos", null] },
+        then: { $concat: ["/api/gallery/image/", { $toString: "$image.photos" }] },
+        else: null
+      }
+    },
+    brandName: "$brand.brandName",
+    sellerName: "$seller.sellerName",
+    topcategoryId: "$product.categoryId",
+  }
+}
     ]);
 
     if (!productViews.length) {
